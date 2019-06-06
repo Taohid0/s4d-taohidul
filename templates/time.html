@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Time</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+
+    </script>
+
+    <script>
+        setInterval(loadData, 1000);
+
+        function loadData() {
+            $(document).ready(function () {
+                $.getJSON("/api/time", function (data) {
+                    $("#time").text(data);
+                });
+            });
+        }
+
+    </script>
+</head>
+<body>
+
+<h1 style="text-align: center">Current time is : <span id="time"></span></h1>
+
+</body>
+</html>

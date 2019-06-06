@@ -1,13 +1,22 @@
 from datetime import datetime
-import os
 
-from flask import Flask, jsonify, render_template, send_from_directory
+from flask import Flask, jsonify, render_template
 
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='hello-world-frontend/build')
+app = Flask(__name__)
 
 CORS(app)
+
+
+@app.route('/api/hello', methods=["GET", ])
+def hello():
+    return 'Hello World from Taohid!'
+
+
+@app.route('/api/time', methods=["GET", ])
+def current_time_api():
+    return jsonify(datetime.now())
 
 
 @app.route("/", methods=["GET", ])
@@ -15,21 +24,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/api/hello', methods=["GET", ])
-def hello():
-    """Return a friendly HTTP greeting."""
-    return 'Hello World from Taohid!'
-
-
-@app.route("/current_time", methods=["GET", ])
+@app.route("/time", methods=["GET", ])
 def current_time():
-    return jsonify(datetime.now())
-
-
-@app.route('/time', methods=["GET", ])
-def serve():
-    print(app.static_folder)
-    return send_from_directory(app.static_folder, "index.html")
+    return render_template("time.html")
 
 
 if __name__ == '__main__':
